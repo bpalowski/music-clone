@@ -30,7 +30,10 @@ class Login extends Component {
       });
       this.props.setLogin()
     }
+
   }
+
+
 
   render() {
     if (this.props.authenticated === true) {
@@ -39,13 +42,13 @@ class Login extends Component {
     return (
       <div className="loginContainer">
         <div className="webName">
-          <h1 class="display-1">Music Mock</h1>
+          <h1 className="display-1">Music Mock</h1>
         </div>
         <div className="2-login-Container">
 
           <div className="jumboTronLogin">
 
-            <a href="http://localhost:5000/api/login" id="login-anchor" >Login</a>
+            <a href="http://localhost:5000/api/login/" id="login-anchor" >Login</a>
 
           </div>
 

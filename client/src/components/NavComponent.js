@@ -5,13 +5,12 @@ import Navbar from 'react-bootstrap/Navbar'
 import axios from 'axios'
 
 const NavComponent = () => {
-  const logout = () => {
-    axios({
-      method: 'get',
-      url: 'api/logout',
-    }).then(res => {
-      window.location.reload(false);
-    }).catch(error => console.log(error))
+  const logout = async () => {
+    console.log("hello")
+    await axios.get('api/logout')
+      .then(res => {
+        window.location.reload(false);
+      }).catch(error => console.log(error))
   }
 
   return (
@@ -21,7 +20,7 @@ const NavComponent = () => {
         <Navbar.Collapse className="mr-auto justify-content-end">
           <Nav>
             <Nav.Link as={NavLink} to="/musicmock">Music</Nav.Link>
-            <Nav.Link as={NavLink} to="/profile">Profile</Nav.Link>
+            {/* <Nav.Link as={NavLink} to="/profile">Profile</Nav.Link> */}
             <Nav.Link onClick={logout} >Logout</Nav.Link>
           </Nav>
         </Navbar.Collapse>
