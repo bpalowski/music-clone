@@ -3,7 +3,7 @@ const router = require('express').Router()
 const qs = require('qs');
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
-const { CLIENT_ID, CLIENT_SECRET, KEY, REDIRECT_URI, TOKEN_SECRET } = require('../exports/index');
+const { CLIENT_ID, CLIENT_SECRET, KEY, REDIRECT_URI, TOKEN_SECRET, BASE_URI } = require('../exports/index');
 
 const jwt = require('jsonwebtoken')
 const { sendDataBodyListener } = require('../socket');
@@ -85,7 +85,7 @@ router.get('/redirect', async (req, res) => {
         res.cookie("logged_in", true, { maxAge: expiryDate, httpOnly: true })
         sendDataBodyListener(response.data)
 
-        res.redirect('http://localhost:3000/#' + qs.stringify({
+        res.redirect(`${BASE_URL}/#` + qs.stringify({
           authenticated: true,
         }))
       }).catch(err => {

@@ -4,3 +4,4 @@ exports.KEY = process.env.KEY;
 exports.REDIRECT_URI = process.env.REDIRECT_URI;
 exports.PORT = process.env.PORT;
 exports.TOKEN_SECRET = process.env.TOKEN_SECRET;
+exports.BASE_URL = process.env.BASE_URL;
