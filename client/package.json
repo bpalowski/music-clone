@@ -32,7 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:5000",
+  "proxy": "https://musicmocker.herokuapp",
   "browserslist": {
     "production": [
       ">0.2%",
