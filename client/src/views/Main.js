@@ -14,7 +14,7 @@ const Main = ({ updateUser, setLogin, authenticated }) => {
       axios.get('api/loggedIn')
         .then(res => {
           if (Boolean(res.data)) {
-            const socket = socketIOClient('http://localhost:5000');
+            const socket = socketIOClient('https://musicmocker.herokuapp.com/');
             socket.emit("initial_data")
             socket.on("get_data", (data) => {
               updateUser(data)

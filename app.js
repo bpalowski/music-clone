@@ -33,6 +33,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 //Sockit
-const portset = app.listen(port, () => console.log("port: ", port))
-setServerIO(portset)
+setServerIO(app.listen(port, () => console.log("port: ", port)))
 
