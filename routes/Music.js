@@ -43,23 +43,23 @@ router.get("/getTopTracks", (req, res) => {
   })
 })
 
-router.get("/play/:id", (req, res) => {
-  const id = req.params.id
-  const access_token = req.cookies['access_token'];
-  const ACCESS_TOKEN = jwt.verify(access_token, TOKEN_SECRET);
+// router.get("/play/:id", (req, res) => {
+//   const id = req.params.id
+//   const access_token = req.cookies['access_token'];
+//   const ACCESS_TOKEN = jwt.verify(access_token, TOKEN_SECRET);
 
-  axios.get(`https://api.spotify.com/v1/tracks/${id}?market=US`, {
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer ' + ACCESS_TOKEN.access_token
-    }
-  }).then(({ data }) => {
-    console.log(data)
-    // res.status(200).send(data.albums.items)
-  }).catch(error => {
-    console.log(error)
-  })
-})
+//   axios.get(`https://api.spotify.com/v1/tracks/${id}?market=US`, {
+//     headers: {
+//       'Accept': 'application/json',
+//       'Content-Type': 'application/x-www-form-urlencoded',
+//       'Authorization': 'Bearer ' + ACCESS_TOKEN.access_token
+//     }
+//   }).then(({ data }) => {
+//     console.log(data)
+//     // res.status(200).send(data.albums.items)
+//   }).catch(error => {
+//     console.log(error)
+//   })
+// })
 
 module.exports = router;

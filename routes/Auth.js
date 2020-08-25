@@ -3,38 +3,39 @@ const router = require('express').Router()
 const qs = require('qs');
 const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
-const { CLIENT_ID, CLIENT_SECRET, KEY, REDIRECT_URI, TOKEN_SECRET } = require('../exports/index');
+const { CLIENT_ID, CLIENT_SECRET, KEY, REDIRECT_URI, TOKEN_SECRET, BASE_URI } = require('../exports/index');
 
 const jwt = require('jsonwebtoken')
 const { sendDataBodyListener } = require('../socket');
 
-router.get("/login", async (req, res) => {
-  try {
-    const id = uuidv4();
-    res.cookie(KEY, id)
-    const scopes = 'streaming user-read-private user-read-email user-read-currently-playing user-library-read';
-    await res.redirect(
-      'https://accounts.spotify.com/authorize?' +
-      qs.stringify({
-        response_type: 'code',
-        client_id: CLIENT_ID,
-        scope: scopes,
-        redirect_uri: REDIRECT_URI,
-        state: id,
-        show_dialog: true
-      }));
-  } catch (error) {
-    res.status(500).json({ err: error })
-  }
+
+
+router.get('/login', (req, res) => {
+
+  const id = uuidv4();
+  res.cookie('spotify_auth_state', id)
+
+  const scopes = 'streaming user-read-private user-read-email user-read-currently-playing user-library-read';
+  return res.redirect(
+    'https://accounts.spotify.com/authorize?' +
+    qs.stringify({
+      response_type: 'code',
+      client_id: CLIENT_ID,
+      scope: scopes,
+      redirect_uri: REDIRECT_URI,
+      state: id,
+      show_dialog: true
+    }));
 })
 
 
 
 router.get('/redirect', async (req, res) => {
+
   try {
     const code = await req.query.code || null;
     const state = await req.query.state || null;
-    const cookieKey = await req.cookies ? req.cookies[KEY] : null;
+    const cookieKey = await req.cookies ? req.cookies['spotify_auth_state'] : null;
 
     if (state === null || state !== cookieKey) {
       res.redirect('/#' +
@@ -43,7 +44,7 @@ router.get('/redirect', async (req, res) => {
         }));
       return;
     }
-    res.clearCookie(KEY);
+    res.clearCookie('spotify_auth_state');
 
     await axios({
       url: 'https://accounts.spotify.com/api/token',
@@ -81,10 +82,10 @@ router.get('/redirect', async (req, res) => {
       }).then(response => {
         res.cookie("access_token", token_access_token, { maxAge: expiryDate, httpOnly: true })
         res.cookie("refresh_token", token_refresh_token, { maxAge: expiryDate, httpOnly: true })
-
+        res.cookie("logged_in", true, { maxAge: expiryDate, httpOnly: true })
         sendDataBodyListener(response.data)
 
-        res.redirect('http://localhost:3000/#' + qs.stringify({
+        res.redirect(`${BASE_URL}/#` + qs.stringify({
           authenticated: true,
         }))
       }).catch(err => {
@@ -101,11 +102,17 @@ router.get('/redirect', async (req, res) => {
   }
 });
 
-router.get("/logout", (req, res) => {
+router.get('/loggedIn', (req, res) => {
+  const bool = req.cookies["logged_in"]
+  res.status(200).send(bool)
+})
+
+router.get('/logout', (req, res) => {
   res.clearCookie("access_token");
   res.clearCookie("refresh_token");
   res.clearCookie("io");
-  res.send('logged out')
+  res.clearCookie('logged_in')
+  res.send('cookie deleted')
 })
 
 
@@ -152,8 +159,6 @@ router.get('/update_token', async (req, res) => {
   }
 })
 
-router.get('*', (req, res) => {
-  res.status(404).json({ error: "Page not Found" });
-})
+
 
 module.exports = router;

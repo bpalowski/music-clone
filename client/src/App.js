@@ -10,7 +10,7 @@ import Main from './views/Main'
 import Error from './components/Error'
 
 
-import UserComponent from './components/UserComponent'
+// import UserComponent from './components/UserComponent'
 
 
 class App extends Component {
@@ -30,11 +30,11 @@ class App extends Component {
             path='/musicmock'
             component={MusicMock}
           />
-          <PrivateRoute
+          {/* <PrivateRoute
             authed={this.props.authenticated}
             path='/profile'
             component={UserComponent}
-          />
+          /> */}
           <Route
             component={Error}
           />
