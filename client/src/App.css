@@ -1,0 +1,98 @@
+.App {
+  text-align: center;
+}
+
+.row-search-dipslay{
+  display: flex;
+  height: auto;
+  background-color:#282c34
+}
+
+.col-container-search-box{
+  position: sticky;
+  height:auto;
+  top: 0;
+  background-color: #282c34;
+}
+
+.searchContainer{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.Info-Enter{
+  padding-top: 30px;
+  height: 75vh;
+}
+
+.webName{
+  color:whitesmoke
+}
+.loginContainer{
+  padding-top:30vh;
+  background-color:teal;
+  height: 100vh;
+}
+
+.jumboTronLogin{
+  padding-top:20vh;
+}
+
+#login-anchor{
+  color:whitesmoke;
+  padding:30px;
+  border-radius: 10px;
+  background-color: rgb(197, 74, 53)
+}
+
+#login-anchor:hover {
+  text-decoration: none;
+}
+.footer-container{
+
+  height: 20vh;
+  background-color: rgb(22, 25, 34);
+}
+
+.underConstruction{
+  background-color: #282c34;
+  height: 100vh;
+}
+.fa-globe-europe{
+  padding:40px;
+ font-size: 250px;
+  color:dodgerblue
+}
+
+.icon-container {
+  padding-top:60px;
+}
+
+.linkedin{
+  border-radius: 50%;
+  margin:0.5em;
+  padding:10px;
+  background: #007bb5;
+  color: white;
+}
+.google{
+  border-radius: 50%;
+  padding:10px;
+  margin:0.5em;
+  background: #dd4b39;
+  color: white;
+}
+.youtube{
+  border-radius: 50%;
+  padding:10px;
+  margin:0.5em;
+  background: #bb0000;
+  color: white;
+}
+.skype{
+  border-radius: 50%;
+  margin:0.5em;
+  padding:10px;
+  background: #00aff0;
+  color: white;
+}
